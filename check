@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Punto de entrada unico del workspace. Sin argumentos muestra un menu.
+#
+#   ./check            menu
+#   ./check play       jugar (el log queda guardado para Claude)
+#   ./check quick      el juego arranca sin errores?
+#   ./check login      entrar -> salir -> volver a entrar
+#   ./check full       recorrido completo con capturas de todas las pantallas
+#   ./check all        quick + login + full
+#   ./check log        resumen del log de tu ultima partida (`play`)
+#
+# Todo delega en godot-mmorpgui/tests/dev/check.sh.
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+CLIENT="$ROOT/godot-mmorpgui/tests/dev/check.sh"
+
+server_status() {
+	local code
+	code=$(curl -s --max-time 2 -o /dev/null -w '%{http_code}' http://127.0.0.1:2122/rpg/static-data/tuning.json)
+	if [ "$code" = "000" ]; then
+		echo "server local: APAGADO  (para prenderlo: cd rpg_server && npm run dev)"
+	else
+		echo "server local: arriba"
+	fi
+}
+
+run() {
+	case "$1" in
+		play)  bash "$CLIENT" play ;;
+		quick) bash "$CLIENT" boot ;;
+		login) bash "$CLIENT" relogin ;;
+		full)  bash "$CLIENT" live ;;
+		all)   bash "$CLIENT" all ;;
+		log)   bash "$CLIENT" log ;;
+		*) sed -n '2,12p' "$0"; return 2 ;;
+	esac
+}
+
+if [ -n "${1:-}" ]; then
+	run "$1"
+	exit $?
+fi
+
+server_status
+echo
+echo "  1) Jugar               (el log queda guardado para que Claude lo lea)"
+echo "  2) Chequeo rapido      (el juego arranca sin errores?)            ~6 s"
+echo "  3) Probar login        (entrar -> salir -> volver a entrar)       ~15 s"
+echo "  4) Recorrido completo  (capturas de todas las pantallas)          ~50 s"
+echo "  5) Todo                (2 + 3 + 4)"
+echo "  6) Ver log de mi ultima partida"
+echo
+read -r -p "Opcion: " opt
+case "$opt" in
+	1) run play ;;
+	2) run quick ;;
+	3) run login ;;
+	4) run full ;;
+	5) run all ;;
+	6) run log ;;
+	*) echo "nada"; exit 0 ;;
+esac

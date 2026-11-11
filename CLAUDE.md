@@ -51,6 +51,10 @@ Use the `protocol-sync` agent to verify it.
 
 ## Builds / tests
 
+**`./check`** (workspace root) is the single entry point for testing the client: a menu to play with
+the log saved, do a quick boot check, test login→logout→relogin, or run the full walkthrough. It uses its
+own test account (`clientcheck`), so it never touches the user's guest account or characters. Details: skill `client-check`.
+
 | Repo | Command | Notes |
 |---|---|---|
 | `rpg_server` | `npm run dev` / `npm run test:cucumber` / `npm run compile:flat` | |
