@@ -1,0 +1,6 @@
+# Cada subcarpeta es su propio repo git — este repo solo versiona el workspace (CLAUDE.md, agentes cross-repo, scripts).
+/godot-mmorpgui/
+/mmorpg_map/
+/rpg_server/
+.DS_Store
+.claude/settings.local.json
