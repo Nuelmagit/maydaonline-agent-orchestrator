@@ -9,8 +9,8 @@ touch that repo. This file only covers **how they connect** to each other.
 | Folder | What it is | Stack | Own context |
 |---|---|---|---|
 | `rpg_server/` | Authoritative server (world sim + management API + WS broadcaster) | Node/TypeScript, MongoDB, Redis, FlatBuffers, Cucumber | `rpg_server/CLAUDE.md`, `rpg_server/.claude/rules/` |
-| `godot-mmorpgui/` | Game client (HUD, networking, world rendering) | Godot 4.3 (GDScript) | `godot-mmorpgui/CLAUDE.md`, `godot-mmorpgui/.claude/rules/` |
-| `mmorpg_map/` | Map editor/generator; exports data to the server and a `.pck` to the client | Godot 4.3 (headless tools) | `mmorpg_map/.claude/rules/map-creation.md`, `map-builder` agent |
+| `godot-mmorpgui/` | Game client (HUD, networking, world rendering) | Godot 4.7 (GDScript) | `godot-mmorpgui/CLAUDE.md`, `godot-mmorpgui/.claude/rules/` |
+| `mmorpg_map/` | Map editor/generator; exports data to the server and a `.pck` to the client | Godot 4.7 (headless tools) | `mmorpg_map/.claude/rules/map-creation.md`, `map-builder` agent |
 
 > Old names: several docs/scripts still say `godot_ui/` or `godot_ui/new-game-project/` —
 > today it is `godot-mmorpgui/`.
@@ -57,7 +57,7 @@ Use the `protocol-sync` agent to verify it.
 | `godot-mmorpgui` | `./build.sh [web\|windows\|android]`; tests in `tests/<area>/run.sh` | Requires `GODOT_BIN` |
 | `mmorpg_map` | `./build.sh` (maps + pack) | Requires `GODOT_BIN`, `MAP_PCK_DEST`, `MAP_DATA_DEST` |
 
-⚠️ The Godot `build.sh` scripts have Windows defaults (`C:\Users\Manuel\Desktop\godot 4.3\...`) and
+⚠️ The Godot `build.sh` scripts auto-detect Godot (mac: `/Applications/Godot*.app`, else `godot` on PATH) unless `GODOT_BIN` is set, and
 the `mmorpg_map` one points to `../godot_ui/new-game-project/external_packages`. In this (mac) layout,
 export first:
 
