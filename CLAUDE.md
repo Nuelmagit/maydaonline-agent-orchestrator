@@ -48,7 +48,7 @@ Use the `protocol-sync` agent to verify it.
 - `side_effect` values (collision, floor change…): `mmorpg_map/AREADME_MAP_SIDE_EFFECT.txt`.
 - The server reads them in `rpg_server/src/data/map.ts` and `src/data/npc_data.ts`.
 - `map-data-sync` agent to validate that export ↔ server ↔ `.pck` are aligned.
-- **New maps** (caves, castles, open-world islands, desert islands; monsters / animals; low/high-level versions):
+- **New maps** (caves, castles, open-world islands, desert islands, forests, swamps; monsters / animals; low/high-level versions; a new biome from a bought pack):
   skill `cave`. The user describes the map in words; the skill runs the map learner, shows the
   picture and iterates. The user never has to remember commands or flags: keep the skill current
   whenever a generator feature lands.
