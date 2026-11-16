@@ -1,0 +1,1 @@
+../../rpg_server/.claude/agents/dev-seeder.md
