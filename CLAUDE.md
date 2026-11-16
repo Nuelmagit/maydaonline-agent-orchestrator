@@ -59,6 +59,11 @@ Use the `protocol-sync` agent to verify it.
 the log saved, do a quick boot check, test login→logout→relogin, or run the full walkthrough. It uses its
 own test account (`clientcheck`), so it never touches the user's guest account or characters. Details: skill `client-check`.
 
+**Spell images / GIFs** ("check the spell images", "show me the spells", "capture spell gifs"): skill
+`spell-check` → `./check spells [spell...]`. Fully automatic (starts Mongo + the dev server if needed,
+runs the seeder, logs into the real client as `seed123`, casts each spell next to monsters) and writes
+`spell_preview/<spell>/ingame.gif`. Report only the GIF paths + failed spells, then ask approve/deny per spell.
+
 | Repo | Command | Notes |
 |---|---|---|
 | `rpg_server` | `npm run dev` / `npm run test:cucumber` / `npm run compile:flat` | |
