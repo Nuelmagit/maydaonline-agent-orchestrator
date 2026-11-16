@@ -64,6 +64,16 @@ own test account (`clientcheck`), so it never touches the user's guest account o
 runs the seeder, logs into the real client as `seed123`, casts each spell next to monsters) and writes
 `spell_preview/<spell>/ingame.gif`. Report only the GIF paths + failed spells, then ask approve/deny per spell.
 
+**Changing how a spell looks** ("Cataclysm should use 43", "stone skin should be fire shield", "X is too
+high"): delegate to the **`spell-fx` agent**, one spell per request (several in parallel is fine). It edits
+`damage_effects` in the client, runs the spell-visual tests, records the in-game GIF and returns its path —
+keeps the main context clean. Source of truth for effect ids and cfg keys: `godot-mmorpgui/.claude/rules/fx-library.md`.
+
+**Dev seeder / test data**: `cd rpg_server && npm run db:seed-dev -- --yes` (local DB only, idempotent)
+creates account `seed123`/`seed123` with one max-level character per class. It lives on rpg_server branch
+`pr-new-monster-walk-ai` (not `main`). Docs: `rpg_server/.claude/rules/dev-seeder.md`. To seed data for
+another feature (items, gold, quest state, PvP pairs…) delegate to the **`dev-seeder` agent**.
+
 | Repo | Command | Notes |
 |---|---|---|
 | `rpg_server` | `npm run dev` / `npm run test:cucumber` / `npm run compile:flat` | |
