@@ -8,6 +8,8 @@
 #   ./check full       recorrido completo con capturas de todas las pantallas
 #   ./check all        quick + login + full
 #   ./check log        resumen del log de tu ultima partida (`play`)
+#   ./check spells [spell...]   GIF de cada spell en el juego real -> spell_preview/<spell>/ingame.gif
+#                               (sin nombres: todas. Ej: ./check spells cataclysm "flame wave")
 #
 # Todo delega en godot-mmorpgui/tests/dev/check.sh.
 ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -31,12 +33,13 @@ run() {
 		full)  bash "$CLIENT" live ;;
 		all)   bash "$CLIENT" all ;;
 		log)   bash "$CLIENT" log ;;
-		*) sed -n '2,12p' "$0"; return 2 ;;
+		spells) shift; bash "$CLIENT" spells "$@" ;;
+		*) sed -n '2,14p' "$0"; return 2 ;;
 	esac
 }
 
 if [ -n "${1:-}" ]; then
-	run "$1"
+	run "$@"
 	exit $?
 fi
 
@@ -48,6 +51,7 @@ echo "  3) Probar login        (entrar -> salir -> volver a entrar)       ~15 s"
 echo "  4) Recorrido completo  (capturas de todas las pantallas)          ~50 s"
 echo "  5) Todo                (2 + 3 + 4)"
 echo "  6) Ver log de mi ultima partida"
+echo "  7) Spells en el juego  (un GIF por spell -> spell_preview/)       ~5 min"
 echo
 read -r -p "Opcion: " opt
 case "$opt" in
@@ -57,5 +61,6 @@ case "$opt" in
 	4) run full ;;
 	5) run all ;;
 	6) run log ;;
+	7) run spells ;;
 	*) echo "nada"; exit 0 ;;
 esac
