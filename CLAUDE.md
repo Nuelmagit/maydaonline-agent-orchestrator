@@ -52,6 +52,12 @@ Use the `protocol-sync` agent to verify it.
   skill `cave`. The user describes the map in words; the skill runs the map learner, shows the
   picture and iterates. The user never has to remember commands or flags: keep the skill current
   whenever a generator feature lands.
+- **Monster / animal art → outfit ids** (epic mmorpg_map#113): `mmorpg_map/tools/asset_intake/outfit_catalog.json`
+  (id → pack, creature, variant, sizes, `replaces`, `size_note`). Never guess an outfit id from a creature name:
+  `cd mmorpg_map && tools/asset_intake/intake.sh monsters find <creature>` (Spanish / plurals OK) returns the
+  outfit ids, the respawn scenes and the server monsters that use them. Gallery to pick by eye:
+  `monsters gallery` → `mmorpg_map/map/generated/outfit_gallery.png`. Old vs new size sheets for the owner:
+  `monsters sizes` → `monster_preview/sizes/`. Rules: `mmorpg_map/tools/asset_intake/README.md` §Monsters.
 
 ## Builds / tests
 
@@ -63,6 +69,13 @@ own test account (`clientcheck`), so it never touches the user's guest account o
 `spell-check` → `./check spells [spell...]`. Fully automatic (starts Mongo + the dev server if needed,
 runs the seeder, logs into the real client as `seed123`, casts each spell next to monsters) and writes
 `spell_preview/<spell>/ingame.gif`. Report only the GIF paths + failed spells, then ask approve/deny per spell.
+
+**Outfit zoo / monster outfits in game** ("show me all the outfits", "check the monster outfits", "zoo
+gifs"): `./check zoo`. Dev map w6 (`mmorpg_map/tools/zoo/`) puts every catalog outfit in its own pen
+as a passive monster (ids 9000+outfit, `rpg_server/.claude/rules/outfit-zoo.md`); the script seeds
+`seed123` into the zoo aisle, walks the real client block by block and writes
+`monster_preview/zoo/block_<n>.gif` (≤7 GIFs). Catalog changed → `bash tools/zoo/zoo.sh build` +
+`build.sh maps minimaps pack` (mmorpg_map) → `npm run zoo:monsters && npm run export:data` (rpg_server).
 
 **Changing how a spell looks** ("Cataclysm should use 43", "stone skin should be fire shield", "X is too
 high"): delegate to the **`spell-fx` agent**, one spell per request (several in parallel is fine). It edits

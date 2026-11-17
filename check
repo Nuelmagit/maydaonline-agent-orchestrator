@@ -10,6 +10,7 @@
 #   ./check log        resumen del log de tu ultima partida (`play`)
 #   ./check spells [spell...]   GIF de cada spell en el juego real -> spell_preview/<spell>/ingame.gif
 #                               (sin nombres: todas. Ej: ./check spells cataclysm "flame wave")
+#   ./check zoo        GIFs del outfit zoo (cada outfit en su corral) -> monster_preview/zoo/
 #
 # Todo delega en godot-mmorpgui/tests/dev/check.sh.
 ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -34,7 +35,8 @@ run() {
 		all)   bash "$CLIENT" all ;;
 		log)   bash "$CLIENT" log ;;
 		spells) shift; bash "$CLIENT" spells "$@" ;;
-		*) sed -n '2,14p' "$0"; return 2 ;;
+		zoo)   bash "$CLIENT" zoo ;;
+		*) sed -n '2,15p' "$0"; return 2 ;;
 	esac
 }
 
@@ -52,6 +54,7 @@ echo "  4) Recorrido completo  (capturas de todas las pantallas)          ~50 s"
 echo "  5) Todo                (2 + 3 + 4)"
 echo "  6) Ver log de mi ultima partida"
 echo "  7) Spells en el juego  (un GIF por spell -> spell_preview/)       ~5 min"
+echo "  8) Outfit zoo          (GIFs de cada outfit -> monster_preview/zoo/) ~5 min"
 echo
 read -r -p "Opcion: " opt
 case "$opt" in
@@ -62,5 +65,6 @@ case "$opt" in
 	5) run all ;;
 	6) run log ;;
 	7) run spells ;;
+	8) run zoo ;;
 	*) echo "nada"; exit 0 ;;
 esac
