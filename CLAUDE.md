@@ -52,6 +52,12 @@ Use the `protocol-sync` agent to verify it.
   skill `cave`. The user describes the map in words; the skill runs the map learner, shows the
   picture and iterates. The user never has to remember commands or flags: keep the skill current
   whenever a generator feature lands.
+- **Monster / animal art → outfit ids** (epic mmorpg_map#113): `mmorpg_map/tools/asset_intake/outfit_catalog.json`
+  (id → pack, creature, variant, sizes, `replaces`, `size_note`). Never guess an outfit id from a creature name:
+  `cd mmorpg_map && tools/asset_intake/intake.sh monsters find <creature>` (Spanish / plurals OK) returns the
+  outfit ids, the respawn scenes and the server monsters that use them. Gallery to pick by eye:
+  `monsters gallery` → `mmorpg_map/map/generated/outfit_gallery.png`. Old vs new size sheets for the owner:
+  `monsters sizes` → `monster_preview/sizes/`. Rules: `mmorpg_map/tools/asset_intake/README.md` §Monsters.
 
 ## Builds / tests
 
