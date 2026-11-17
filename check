@@ -11,6 +11,8 @@
 #   ./check spells [spell...]   GIF de cada spell en el juego real -> spell_preview/<spell>/ingame.gif
 #                               (sin nombres: todas. Ej: ./check spells cataclysm "flame wave")
 #   ./check zoo        GIFs del outfit zoo (cada outfit en su corral) -> monster_preview/zoo/
+#   ./check biomes     cada personaje de bioma (Seed Desert/Dunes/Forest/Swamp) entra a su mapa w7-w10
+#                      -> captura en map_preview/promoted/
 #
 # Todo delega en godot-mmorpgui/tests/dev/check.sh.
 ROOT="$(cd "$(dirname "$0")" && pwd)"
@@ -36,7 +38,8 @@ run() {
 		log)   bash "$CLIENT" log ;;
 		spells) shift; bash "$CLIENT" spells "$@" ;;
 		zoo)   bash "$CLIENT" zoo ;;
-		*) sed -n '2,15p' "$0"; return 2 ;;
+		biomes) bash "$CLIENT" biomes ;;
+		*) sed -n '2,17p' "$0"; return 2 ;;
 	esac
 }
 
@@ -55,6 +58,7 @@ echo "  5) Todo                (2 + 3 + 4)"
 echo "  6) Ver log de mi ultima partida"
 echo "  7) Spells en el juego  (un GIF por spell -> spell_preview/)       ~5 min"
 echo "  8) Outfit zoo          (GIFs de cada outfit -> monster_preview/zoo/) ~5 min"
+echo "  9) Mapas de bioma      (cada Seed de bioma entra a su mapa w7-w10)   ~1 min"
 echo
 read -r -p "Opcion: " opt
 case "$opt" in
@@ -66,5 +70,6 @@ case "$opt" in
 	6) run log ;;
 	7) run spells ;;
 	8) run zoo ;;
+	9) run biomes ;;
 	*) echo "nada"; exit 0 ;;
 esac

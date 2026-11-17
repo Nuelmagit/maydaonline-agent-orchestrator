@@ -77,6 +77,10 @@ as a passive monster (ids 9000+outfit, `rpg_server/.claude/rules/outfit-zoo.md`)
 `monster_preview/zoo/block_<n>.gif` (≤7 GIFs). Catalog changed → `bash tools/zoo/zoo.sh build` +
 `build.sh maps minimaps pack` (mmorpg_map) → `npm run zoo:monsters && npm run export:data` (rpg_server).
 
+**Promoted biome maps** ("do the biome maps load?", after re-promoting / rebuilding the pck): `./check biomes`
+logs into the real client as Seed Desert/Dunes/Forest/Swamp (w7–w10, `BIOME_START_TILES` in the seeder) and
+checks scene, tiles, minimap and log; screenshots in `map_preview/promoted/` (epic orchestrator#17).
+
 **Changing how a spell looks** ("Cataclysm should use 43", "stone skin should be fire shield", "X is too
 high"): delegate to the **`spell-fx` agent**, one spell per request (several in parallel is fine). It edits
 `damage_effects` in the client, runs the spell-visual tests, records the in-game GIF and returns its path —
